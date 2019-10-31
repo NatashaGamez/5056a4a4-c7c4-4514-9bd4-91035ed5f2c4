@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  enrollment-database:
+    image: postgres:11-alpine
+    container_name: enrollment-database
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=${ITESO_DATABASE_NAME}
+      - POSTGRES_USER=${ITESO_DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${ITESO_DATABASE_PWD}
+    volumes:
+      - enrollment-data:/var/lib/postgresql/data
+
+  enrollment-admin:
+    image: dpage/pgadmin4
+    container_name: enrollment-admin
+    ports:
+      - 80:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${ITESO_DATABASE_ADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${ITESO_DATABASE_ADMIN_PWD}
+
+volumes:
+  enrollment-data:
+    external: true
