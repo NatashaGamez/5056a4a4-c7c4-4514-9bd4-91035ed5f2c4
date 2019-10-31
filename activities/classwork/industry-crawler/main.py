@@ -13,15 +13,24 @@ logger = logging.getLogger(__name__)
 
 
 class Main(object):
+    def _recursive_search(self, node, string_wrapper, exact):
+        pass
+
 
     @staticmethod
     @timeit(logger)
     def download(filename=DEFAULT_INDUSTRY_FILE):
-        pass
+        logger.info("Starting download producer...")
+        sic = SIC.from_url(URL)
+        with open(filename, "w") as file:
+            file.write(sic.jsonify())
 
     @timeit(logger)
+    @pretty_print(logger)
     def search(self, title, exact=False, filename=DEFAULT_INDUSTRY_FILE):
-        pass
+        target_title = StringWrapper(value=title)
+        sic_industries = SIC.load_json(filename)
+        return []
 
 
 if __name__ == "__main__":
