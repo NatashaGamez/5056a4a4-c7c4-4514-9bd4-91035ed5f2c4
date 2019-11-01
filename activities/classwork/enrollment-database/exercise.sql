@@ -160,3 +160,5 @@ FROM
         INNER JOIN course c on e.course_id = c.id
 WHERE
     e.approved = 1 AND s.gender = 'female'
+
+-- termino
