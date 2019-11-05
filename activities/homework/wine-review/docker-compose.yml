@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  wine-database:
+    image: postgres:11-alpine
+    container_name: wine-database
+    ports:
+      - 5430:5432
+    environment:
+      - POSTGRES_DB=${WINE_DATABASE_NAME}
+      - POSTGRES_USER=${WINE_DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${WINE_DATABASE_PWD}
+    volumes:
+      - wine-database-vol:/var/lib/postgresql/data
+
+  wine-admin:
+    image: dpage/pgadmin4
+    container_name: wine-admin
+    ports:
+      - 8000:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${WINE_DATABASE_ADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${WINE_DATABASE_ADMIN_PWD}
+    volumes:
+      - wine-application-vol:/var/lib/pgadmin
+
+volumes:
+  wine-database-vol:
+    external: true
+  wine-application-vol:
+    external: true
