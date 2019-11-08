@@ -239,3 +239,5 @@ FROM
     country c INNER JOIN wine w ON c.id = w.country_id INNER JOIN review r ON w.id = r.wine_id
 GROUP BY
    r.points, c.happiness_score, c.name;
+
+--Homework done
