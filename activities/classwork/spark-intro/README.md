@@ -34,7 +34,7 @@ Test with the following:
 
 ```scala
 val example = 1 to 10000
-val data = spark.createData(example)
+val data = spark.createDataset(example)
 data.filter(_ % 2 == 0).show()
 ```
 
