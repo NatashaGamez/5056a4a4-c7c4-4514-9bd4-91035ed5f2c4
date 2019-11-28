@@ -21,14 +21,14 @@ object Main extends Context.Spark {
 
   // Perform word count
   def wordCount(inputPath: String): Dataset[WordCount] = getRawData(inputPath)
-    .flatMap(book => splitLine(book))
-    .map(word => standardize(word))
-    .filter(_.length > 1)
-    .groupByKey(identity)
-    .count()
-    .map{
-      case(w, c) => WordCount(w, c)
-    }
+    .flatMap(book => splitLine(book)) //
+    .map(word => standardize(word)) //
+    .filter(_.length > 1) //
+    .groupByKey(identity) //
+    .count() //
+    .map{//
+      case(w, c) => WordCount(w, c) //
+    } //
 
   def main(args: Array[String]): Unit = {
 
