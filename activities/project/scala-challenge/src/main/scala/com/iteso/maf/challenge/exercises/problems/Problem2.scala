@@ -32,8 +32,19 @@ case object Problem2 extends Problem {
       parameters('n.as[Long], 'k.as[Long]) {
         (n, k) => {
           // <---- Your code starts here. --->
+          def sumsuper(n: Long): Long = n.toString.length match {
+            case 1 => n
+            case _ =>
+              val m = n.toString.toList.map(c => c.toString.toInt)
+              val s = m.foldLeft(0)(_ + _)
+              sumsuper(s)
+          }
+          val m = n.toString.toList.map(c => c.toString.toInt)
+          val s = m.foldLeft(0)(_ + _)
+          val prod = s * k
+          val fg = sumsuper(prod)
 
-          val challengeResponse: SuperDigit = ???
+          val challengeResponse: SuperDigit = SuperDigit(n = n,k = k, value = fg)
           // <---- Your code ends  here. ---->
           complete(challengeResponse)
         }

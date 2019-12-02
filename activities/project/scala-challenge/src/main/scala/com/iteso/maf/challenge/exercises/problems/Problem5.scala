@@ -43,21 +43,33 @@ case object Problem5 extends Problem {
     // Example method that uses pattern matching
     def map(f: Int => Int): IntList = this match {
       case Final => Final
-      case Item(head, tail) => Item(f(head), tail)
+      case Item(head, tail) => Item(f(head), tail.map(f))
     }
 
     // A) Implement the length method
-    def length: Int = ???
+    def length: Int = this match {
+      case Final => 0
+      case Item(head, tail) => tail.length + 1
+    }
 
     // B) Implement the sum method
-    def sum: Int = ???
+    def sum: Int = this match{
+      case Final => 0
+      case Item(head, tail) => head + tail.sum
+    }
 
     // C) Implement a generalization of the above methods and call it fold.
-    // def fold(end: Int, f: ???): Int = ???
-
+    def fold(end: Int, f: (Int, Int) => Int): Int = this match {
+      case Final => end
+      case Item(head, tail) => f(head, tail.fold(end, f))
+    }
+    // para length es b + 1 y para sum es a + b cuando f es f(a,b)
 
     // D) Implement a generic fold (generalization over the fold on C).
-    // def genericFold[B](end: ???, f: ???): B = ???
+    def genericFold[B](end: B, f: (Int, B) => B): B = this match {
+      case Final => end
+      case Item(head, tail) => f(head, tail.genericFold(end, f))
+    }
 
   }
 
@@ -73,7 +85,13 @@ case object Problem5 extends Problem {
 
           // E) Complete the challengeResponse with the inner multiplication of the list using the fold method.
           // F) Use the generic fold to create a string representation of the list.
-          val challengeResponse: IntListResult = ???
+          val challengeResponse: IntListResult = {
+            val resultLen: Int = myList.length
+            val resultSum: Int = myList.sum
+            val resultMult: Int = myList.fold(end = 1, f = (num: Int, z: Int) => num*z)
+            val resultStr: String = myList.genericFold(end = "", f = (num: Int, z: String) => num.toString + " -> " + z)
+            IntListResult(len=resultLen,sum=resultSum,mult= resultMult,str=resultStr)
+          }
 
           complete(challengeResponse)
         }

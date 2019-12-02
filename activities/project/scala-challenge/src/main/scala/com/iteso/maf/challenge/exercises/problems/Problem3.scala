@@ -31,6 +31,19 @@ case object Problem3 extends Problem {
       parameters('size.as[Int]) {
         size => {
           // <---- Your code starts here. --->
+          def pascal(c:Int,  r:Int): Int = {
+            if (c == 0 || c == r) 1 else {
+              pascal(c - 1, r- 1) + pascal(c, r-1)
+
+            }
+          }
+          def pascalTriangule(size:Int) ={
+            (0 to size).map(i => {
+              (0 to i).map(j => {
+                pascal( c = j, r = i)
+              })
+            })
+          }
 
           val challengeResponse: String = ???
           // <---- Your code ends  here. ---->

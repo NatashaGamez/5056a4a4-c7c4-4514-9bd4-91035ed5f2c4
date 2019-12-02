@@ -42,7 +42,13 @@ case object Problem1 extends Problem {
         (first, second) => {
           val challengeSolution: MixedString = {
             // <---- Your code starts here. --->
-            ???
+            val base = first.zip(second).map(tuple => tuple._1.toString + tuple._2.toString).mkString
+            val mixed = (first.length, second.length) match{
+              case (a,b) if a > b => base + first.substring(b,a)
+              case (c,d) if d > c => base + second.substring(c,d)
+              case _ => base
+            }
+            MixedString(first = first, second = second, mixed = mixed)
             // <---- Your code ends  here. ---->
           }
           complete(challengeSolution)
